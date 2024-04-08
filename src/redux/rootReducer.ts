@@ -3,6 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import { issuesDataReducer } from './issuesData';
 import { urlParamsReducer } from './urlParams';
+import { historyIssuesDataReducer } from './historyIssuesData';
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +13,7 @@ const persistConfig = {
 export const rootReducer = combineReducers({
   issuesData: issuesDataReducer,
   urlParams: urlParamsReducer,
+  historyIssuesData: historyIssuesDataReducer,
 });
 
 

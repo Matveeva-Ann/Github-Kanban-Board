@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addIssuesToTodo, moveIssue } from '../redux/issuesData';
 import issuesApi from '../api/issuesApi';
 import { setUrlParamsRedux } from '../redux/urlParams';
+import { addIssuesToHistory } from '../redux/historyIssuesData';
 const { Text } = Typography;
 
 interface SearchBoxProps {
@@ -30,6 +31,24 @@ export default function SearchBox({ setIsRequestSuccess }: SearchBoxProps) {
       setIsRequestSuccess(true);
       dispatch(setUrlParamsRedux(urlParams));
       dispatch(addIssuesToTodo(data));
+      const param = urlParams.join('/')
+      dispatch(addIssuesToHistory({repoName: param , data: [
+        {
+          name: "ToDo",
+          items: data,
+          id: 1,
+        },
+        {
+          name: "InProgress",
+          items: [],
+          id: 2,
+        },
+        {
+          name: "Done",
+          items: [],
+          id: 3,
+        },
+      ]}))
     } catch (e) {
       console.log(e);
       setIsRequestSuccess(false);

@@ -7,6 +7,7 @@ import { Typography } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootStateType } from '../types/rootStateType';
 import { TaskState } from '../types/TaskState';
+import History from '../components/History';
 
 const { Text } = Typography;
 const { Header, Content } = Layout;
@@ -43,6 +44,7 @@ function Home() {
     <Layout style={layoutStyle}>
       <Header style={headerStyle}>Github Kanban Board</Header>
       <Content style={contentStyle}>
+        <History></History>
         <SearchBox setIsRequestSuccess={setIsRequestSuccess}></SearchBox>
         <Divider />
         {!isRequestSuccess && (

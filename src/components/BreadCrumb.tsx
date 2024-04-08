@@ -8,7 +8,7 @@ export default function BreadCrumb() {
   return (
     urlParams.length === 2 ? (
       <Breadcrumb
-        style={{ maxWidth: '80%', margin: '-10px auto' }}
+        style={{ maxWidth: '80%', margin: '-10px auto',  paddingInline: '10px' }}
         separator=">"
         items={[
           {

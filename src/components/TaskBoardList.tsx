@@ -8,6 +8,7 @@ import TaskCard from './TaskCard';
 import { Board } from '../types/board';
 import { Issue } from '../types/Issue';
 import { moveIssue } from '../redux/issuesData';
+import { changeHistory } from '../redux/historyIssuesData';
 
 const { Title, Text } = Typography;
 
@@ -18,6 +19,7 @@ export default function TaskBoardList() {
   const [currentBoard, setCurrentBoard] = useState<Board | null>(null);
   const [currentCard, setCurrentCard] = useState<Issue | null>(null);
   const dispatch = useDispatch();
+  const historyIssuesData = useSelector((state: RootStateType) => state.historyIssuesData);
 
   
   useEffect(() => {
@@ -43,7 +45,14 @@ export default function TaskBoardList() {
         }
       }
     }
-    dispatch(moveIssue({...board, items: [...boardsData]}));
+    
+    dispatch(moveIssue([...boardsData]));
+    const repoName = `${board.items[0].url.split('/')[4]}/${board.items[0].url.split('/')[5]}`;
+    const index = historyIssuesData.findIndex(item => item.repoName === repoName);
+    let newHistoryIssues = JSON.parse(JSON.stringify(historyIssuesData));  
+    newHistoryIssues.splice(index, 1, {repoName, data: [...boardsData]});
+    dispatch(changeHistory(newHistoryIssues))
+    dispatch(changeHistory({repoName, data: [...boardsData]}))
   };
 
 

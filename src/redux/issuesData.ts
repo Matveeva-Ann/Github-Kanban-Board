@@ -1,22 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Board } from "../types/board";
 
-const initialState = [
-  {
-    name: "ToDo",
-    items: [],
-    id: 1,
-  },
-  {
-    name: "InProgress",
-    items: [],
-    id: 2,
-  },
-  {
-    name: "Done",
-    items: [],
-    id: 3,
-  },
-];
+const initialState: Board[] = [];
 
 const issuesDataSlice = createSlice({
   name: "issuesData",
@@ -25,9 +10,8 @@ const issuesDataSlice = createSlice({
     addIssuesToTodo(state, action) {
       state[0].items = action.payload;
     },
-    moveIssue(state, action) {
-      const { items } = action.payload;
-      return items ? [...items] :[...action.payload];
+    moveIssue(state, action) {           
+      return [...action.payload];
     }
   },
 });

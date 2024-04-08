@@ -4,4 +4,5 @@ export interface Issue {
   created_at: Date;
   user: { login: string };
   comments: number;
+  url?: string;
 }

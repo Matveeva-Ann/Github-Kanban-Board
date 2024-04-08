@@ -1,15 +1,17 @@
 import { Card, Typography } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeHistory } from '../redux/historyIssuesData';
 import { moveIssue } from '../redux/issuesData';
 import { Board } from '../types/board';
 import { Issue } from '../types/Issue';
+import { RootStateType } from '../types/rootStateType';
 
 const { Text } = Typography;
 interface TaskCardProps {
   card: Issue;
   board: Board;
-  currentBoard: Board;
-  currentCard: Issue;
+  currentBoard: Board | null;
+  currentCard: Issue | null;
   boardsData: Board[];
   setBoardsData: (value: Board[]) => void;
   setCurrentBoard: (value: Board | null) => void;
@@ -28,7 +30,7 @@ export default function TaskCard({
 }: TaskCardProps) {
   const { title, number, created_at, user, comments } = card;
   const dispatch = useDispatch();
-
+  const historyIssuesData = useSelector((state: RootStateType) => state.historyIssuesData);
 
   function countingTime(timeRequest: Date) {
     const now = new Date();
@@ -60,8 +62,8 @@ export default function TaskCard({
 
   function dropHandler(e: React.DragEvent<HTMLDivElement>, board: Board) {    
     e.preventDefault();
-    const currentIndex = currentBoard.items.indexOf(currentCard);
-    currentBoard.items.splice(currentIndex, 1);
+    const currentIndex = currentBoard?.items.indexOf(currentCard);
+    currentBoard?.items.splice(currentIndex, 1);
     const dropIndex = board.items.indexOf(card);
     if (currentIndex <= dropIndex) {
       board.items.splice(dropIndex + 1, 0, currentCard);
@@ -76,7 +78,13 @@ export default function TaskCard({
         return a;
       })
     )
-    dispatch(moveIssue({...board, items: [...boardsData]}));
+    dispatch(moveIssue([...boardsData]));
+    const repoName = `${board.items[0].url.split('/')[4]}/${board.items[0].url.split('/')[5]}`;
+    const index = historyIssuesData.findIndex(item => item.repoName === repoName);
+    let newHistoryIssues = JSON.parse(JSON.stringify(historyIssuesData));  
+    newHistoryIssues.splice(index, 1, {repoName, data: [...boardsData]});
+    dispatch(changeHistory(newHistoryIssues));
+
     setCurrentBoard(null);
     setCurrentCard(null);
   }
