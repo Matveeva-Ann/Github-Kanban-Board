@@ -8,9 +8,10 @@ const issuesDataSlice = createSlice({
   initialState: initialState,
   reducers: {
     addIssuesToTodo(state, action) {
-      state[0].items = action.payload;
+      state[0].items = [...action.payload.data];
+      state[0].repoName = action.payload.param;
     },
-    moveIssue(state, action) {           
+    moveIssue(_, action) {  
       return [...action.payload];
     }
   },

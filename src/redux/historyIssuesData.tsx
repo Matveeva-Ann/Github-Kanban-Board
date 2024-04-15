@@ -13,7 +13,7 @@ const historyIssuesDataSlice = createSlice({
       }
       return state;
     },
-    changeHistory(state, {payload}) {        
+    changeHistory(_, {payload}) {              
       return [...payload];
     },
   },

@@ -6,7 +6,7 @@ const urlParamsSlice = createSlice({
   name: 'urlParams',
   initialState,
   reducers: {
-    setUrlParamsRedux(state, action) {
+    setUrlParamsRedux(_, action) {
       return [...action.payload];
     },
   },

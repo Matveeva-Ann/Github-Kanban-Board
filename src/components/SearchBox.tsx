@@ -30,23 +30,26 @@ export default function SearchBox({ setIsRequestSuccess }: SearchBoxProps) {
       const data = await issuesApi(urlParams);
       setIsRequestSuccess(true);
       dispatch(setUrlParamsRedux(urlParams));
-      dispatch(addIssuesToTodo(data));
       const param = urlParams.join('/')
+      dispatch(addIssuesToTodo({data, param}));
       dispatch(addIssuesToHistory({repoName: param , data: [
         {
           name: "ToDo",
           items: data,
           id: 1,
+          repoName: param,
         },
         {
           name: "InProgress",
           items: [],
           id: 2,
+          repoName: param,
         },
         {
           name: "Done",
           items: [],
           id: 3,
+          repoName: param,
         },
       ]}))
     } catch (e) {
@@ -110,7 +113,7 @@ export default function SearchBox({ setIsRequestSuccess }: SearchBoxProps) {
 
   return (
     <div style={{ position: 'relative' }}>
-      <Flex gap="middle" style={{ maxWidth: '80%', margin: '0 auto', padding: '20px 0' }}>
+      <Flex gap="middle" style={{ maxWidth: '80%', margin: '10px auto', padding: '16px 0' }}>
         <Input
           placeholder="Enter repo URL"
           value={inputValue}

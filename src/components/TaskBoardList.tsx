@@ -47,12 +47,11 @@ export default function TaskBoardList() {
     }
     
     dispatch(moveIssue([...boardsData]));
-    const repoName = `${board.items[0].url.split('/')[4]}/${board.items[0].url.split('/')[5]}`;
+    const repoName = boardsData[0].repoName;        
     const index = historyIssuesData.findIndex(item => item.repoName === repoName);
     let newHistoryIssues = JSON.parse(JSON.stringify(historyIssuesData));  
     newHistoryIssues.splice(index, 1, {repoName, data: [...boardsData]});
     dispatch(changeHistory(newHistoryIssues))
-    dispatch(changeHistory({repoName, data: [...boardsData]}))
   };
 
 
@@ -62,7 +61,7 @@ export default function TaskBoardList() {
       {isAnyData && (
         <Flex gap="middle" justify="space-around">
           {boardsData &&
-            boardsData.map((item: Board, index) => (
+            boardsData.map((board: Board, index) => (
               <Flex
                 key={index}
                 gap="small"
@@ -74,21 +73,22 @@ export default function TaskBoardList() {
                 }}
                 className="js-board"
                 onDragOver={(e: React.DragEvent<HTMLDivElement>) => dragOverHandler(e)}
-                onDrop={(e: React.DragEvent<HTMLDivElement>) => dropCardHandler(e, item)}
+                onDrop={(e: React.DragEvent<HTMLDivElement>) => dropCardHandler(e, board)}
               >
                 <Title level={2} style={{ textAlign: 'center' }}>
-                  {item.name}
+                  {board.name}
                 </Title>
+                <Text type="secondary">Сount: {board.items.length}</Text>
 
-                {item.items &&
-                  item.items.length !== 0 &&
-                  item.items.map((card: Issue, index) => (
+                {board.items &&
+                  board.items.length !== 0 &&
+                  board.items.map((card: Issue, index) => (
                     <TaskCard
                       currentBoard={currentBoard}
                       currentCard={currentCard}
                       setCurrentCard={setCurrentCard}
                       setCurrentBoard={setCurrentBoard}
-                      board={item}
+                      board={board}
                       card={card}
                       key={index}
                       boardsData={boardsData}

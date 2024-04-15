@@ -62,12 +62,12 @@ export default function TaskCard({
 
   function dropHandler(e: React.DragEvent<HTMLDivElement>, board: Board) {    
     e.preventDefault();
-    const currentIndex = currentBoard?.items.indexOf(currentCard);
+    const currentIndex: number = currentCard ? currentBoard?.items.indexOf(currentCard)! : -1;
     currentBoard?.items.splice(currentIndex, 1);
     const dropIndex = board.items.indexOf(card);
-    if (currentIndex <= dropIndex) {
+    if (currentIndex <= dropIndex && currentCard) {
       board.items.splice(dropIndex + 1, 0, currentCard);
-    } else {
+    } else if (currentCard) {
       board.items.splice(dropIndex, 0, currentCard);
     }
     setBoardsData(
@@ -79,7 +79,7 @@ export default function TaskCard({
       })
     )
     dispatch(moveIssue([...boardsData]));
-    const repoName = `${board.items[0].url.split('/')[4]}/${board.items[0].url.split('/')[5]}`;
+    const repoName = boardsData[0].repoName;
     const index = historyIssuesData.findIndex(item => item.repoName === repoName);
     let newHistoryIssues = JSON.parse(JSON.stringify(historyIssuesData));  
     newHistoryIssues.splice(index, 1, {repoName, data: [...boardsData]});
