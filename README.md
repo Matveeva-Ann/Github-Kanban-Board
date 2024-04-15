@@ -1,8 +1,8 @@
 # Проект "Github--Kanban--Board" 📝🔢 
 
-Подивитись проект: [[https://matveeva-ann.github.io/formTask/](https://github-kanban-board-k4pr.onrender.com)
+Подивитись проект: [https://matveeva-ann.github.io/formTask/](https://github-kanban-board-k4pr.onrender.com)
 
-## Реалізовано в ремках тестового завдання 👩‍💼
+## Реалізовано в рамках тестового завдання 👩‍💼
 
 ## Використані технології:
 - React
