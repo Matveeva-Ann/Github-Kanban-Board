@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# Проект "Github--Kanban--Board" 📝🔢 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Подивитись проект: [[https://matveeva-ann.github.io/formTask/](https://github-kanban-board-k4pr.onrender.com)
 
-Currently, two official plugins are available:
+## Реалізовано в ремках тестового завдання 👩‍💼
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Використані технології:
+- React
+- Redux
+- TS
+- Ant Design
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Функціональність ⚙️
+- Користувач може ввести URL репозиторію в поле введення зверху сторінки і натиснути "Завантажити".
+- Застосунок завантажує проблеми для репозиторію, використовуючи GitHub API.
+- Застосунок містить 3 колонки:
+  - Зробити (ToDo)
+  - У процесі (InProgress)
+  - Завершено (Done)
+- Користувач може перетягувати та розміщувати між колонками та змінювати порядок проблем.
+- Поточне положення проблеми (колонка та порядок) зберігатися між пошуковими сесіями та сесіями браузера. Коли користувач завантажує проблеми для Repo1 -> Repo2 -> Repo1, він повинен бачити всі зміни, які він зробив для Repo1.
+- Користувач може відвідати профіль власника репозиторію та перейти до репозиторію за посиланнями під введенням.
