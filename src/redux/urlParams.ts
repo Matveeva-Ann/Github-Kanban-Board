@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: Array<string> = [''];
+export const initialStateUrlParam: Array<string> = [''];
 
 const urlParamsSlice = createSlice({
   name: 'urlParams',
-  initialState,
+  initialState: initialStateUrlParam,
   reducers: {
     setUrlParamsRedux(_, action) {
       return [...action.payload];

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootStateType } from '../types/rootStateType';
 import { TaskState } from '../types/TaskState';
 import History from '../components/History';
+import React from 'react';
 
 const { Text } = Typography;
 const { Header, Content } = Layout;
@@ -44,7 +45,7 @@ function Home() {
     <Layout style={layoutStyle}>
       <Header style={headerStyle}>Github Kanban Board</Header>
       <Content style={contentStyle}>
-        <History></History>
+        <History setIsRequestSuccess={setIsRequestSuccess}></History>
         <SearchBox setIsRequestSuccess={setIsRequestSuccess}></SearchBox>
         <Divider />
         {!isRequestSuccess && (

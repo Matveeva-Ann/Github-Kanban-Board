@@ -1,15 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Board } from "../types/board";
+import { Issue } from "../types/Issue";
 
-const initialState: Board[] = [];
+export const initialState: Board[] = [
+  {
+    id: 0,
+    items: [] as Issue[],
+    name: 'Todo',
+    repoName: 'RepoName',
+  }
+];
 
 const issuesDataSlice = createSlice({
   name: "issuesData",
   initialState: initialState,
   reducers: {
-    addIssuesToTodo(state, action) {
-      state[0].items = [...action.payload.data];
-      state[0].repoName = action.payload.param;
+    addIssuesToTodo(state, {payload}) {
+      console.log(payload);
+      state[0].items = [...payload.data];
+      state[0].repoName = payload.param;
     },
     moveIssue(_, action) {  
       return [...action.payload];

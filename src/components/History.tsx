@@ -6,12 +6,17 @@ import { moveIssue } from '../redux/issuesData';
 import { HistoryIssuesState } from '../types/HistoryIssuesState';
 import { setUrlParamsRedux } from '../redux/urlParams';
 
-export default function History() {
+interface HistoryProps {
+  setIsRequestSuccess: (value: boolean) => void;
+}
+
+export default function History({setIsRequestSuccess}: HistoryProps) {
   const urlParams = useSelector((state: RootStateType) => state.historyIssuesData);
   const dispatch = useDispatch();
 
   function goToRepository(repoName: string) {
-    const findData: HistoryIssuesState | undefined = urlParams.find(elem => elem.repoName === repoName);
+    const findData: HistoryIssuesState | undefined = urlParams.find(elem => elem.repoName === repoName);  
+    setIsRequestSuccess(findData ? true : false)  
     if (findData) {
       dispatch(moveIssue(findData.data));
       dispatch(setUrlParamsRedux(findData.repoName.split('/')));

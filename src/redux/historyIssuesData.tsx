@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import { HistoryIssuesState } from "../types/HistoryIssuesState";
 
-const initialState: HistoryIssuesState[]  = [];
+export const initialStateHistory: HistoryIssuesState[]  = [];
 
 const historyIssuesDataSlice = createSlice({
   name: "historyIssuesData",
-  initialState: initialState,
+  initialState: initialStateHistory,
   reducers: {
     addIssuesToHistory(state,  action: PayloadAction<HistoryIssuesState>) {
       if (!state.some(item => item.repoName === action.payload.repoName)) {
-        return [...state, action.payload];
+        return [ action.payload, ...state];
       }
       return state;
     },
